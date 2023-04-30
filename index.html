@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-analytics.js";></script>
+  
+
+</head>
+<body>
+   <header> 
+    <div class="navi">
+        <div class="logo">
+            <video loop autoplay src="vid/Logo Symbol.mp4" width="110px" height="90px" alt="logo">
+        </div>
+
+        <nav>
+            <ul >
+                 <li class="dropdown">
+                    <a href="" >About </a> 
+                        <ul class="dropdown-menu">
+
+            <li><a href=""><h4>Welcome to our healthcare website!</h4></br></br>
+<h5><i> We are a team of dedicated healthcare professionals who are committed to providing you with high-quality healthcare services.
+</br></br>Our mission is to help you achieve optimal health and wellness by offering comprehensive and personalized healthcare solutions.
+Our team includes doctors, nurses, and other healthcare professionals who are experts in their respective fields.
+</br> We believe in a collaborative approach to healthcare, and we work closely with each other to ensure that our patients receive the best possible care.
+At our healthcare facility, we offer a wide range of services,
+ including preventive care, diagnostic testing, treatment for acute and chronic illnesses, and management of chronic conditions.
+</br> We also offer counseling and education to help our patients make informed decisions about their health and wellbeing.
+We are dedicated to providing compassionate and personalized care to each and every patient who walks through our doors.
+ We understand that every patient is unique, and we strive to tailor our services to meet the individual needs of each patient.
+Thank you for choosing our healthcare facility for your healthcare needs. </br>
+We look forward to serving you and helping you achieve your health and wellness goals.</i></h5></a></li>
+            </ul>
+          </li>
+        </ul>
+
+            <!-- <ul>
+                <li class="dropdown">
+                    <a href="" >Conditions</a>
+                    <ul class="dropdown-menu">
+                        <li> 
+                            <p> sab badhiya</p>
+
+                        </li>
+
+                    </ul>
+                </li>
+            </ul> -->
+
+            <ul>
+                <li class="dropdown">
+                    <a href="#" >Services</a>
+                     <ul class="dropdown-menu" style="width:200px" >
+                        <li> 
+                            <a href=""><h5>Online Appointment Booking</h5></a>
+                        </li>
+                        <li> 
+                            <a href=""><h5>Telemedicine Consultations</h5></a>
+                        </li>
+                        <li> 
+                          <a href=""><h5>Wellness Programs</h5></a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li class="dropdown">
+                    <a href="" >For Patients</a>
+                    <ul class="dropdown-menu">
+                        <li> 
+                            <p> sab badhiya</p>
+
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li class="dropdown">
+                    <a href="">Our Providers</a>
+                    <ul class="dropdown-menu" style="width:200px">
+                        <li> 
+
+
+                            <a href="https://www.apollohospitals.com/"><h5>Apollo</h5></a>
+                        </li>
+                        <li> 
+                            <a href="https://lilavatihospital.com/"><h5>Lilavati</h5></a>
+                        </li>
+                        <li> 
+                          <a href="https://www.fortishealthcare.com/"><h5> Fortis</h5></a>
+                            
+
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li class="dropdown">
+                    <a href="">Our Locations</a>
+                    <ul class="dropdown-menu" style="width:290px">
+                        <li> 
+                            <p  > <pre class="navOptTextDesign"><b><u>ADDRESS</u> :</b>  12 Km Stone,
+           Amritsar-Jalandhar,
+           G.T Road,
+           Amritsar-143001(PB) ,
+           India .      
+                                          
+                                  </pre> </p>
+
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li class="dropdown">
+                    <a p href="">Contact Us</a>
+                    <ul class="dropdown-menu" style="width:200px">
+                        <li> 
+                            <p class="navOptTextDesign">
+                                <b><u>MOBILE</u> :</b> 
+                                8872009951<br>
+                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                                &nbsp; &nbsp; 8872009950<br>
+                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(24/7 Support Line)</p>
+
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+
+       </nav>
+       
+
+       
+
+
+
+
+
+
+
+
+
+       <div id="but1">
+        <button id="bt1">Book an Appointment</button>
+        <form id="form1" style="display: none;"  >
+          <b>  Name : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</b>
+
+          <input type="text" id="name" name="name" placeholder="Enter your full name"><br><br>
+
+            <b>Age :</b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+             <input id="age" type="num" name="age" placeholder="age"> <br><br>
+
+            <b>gender :</b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+
+            <select id="gender" name="gender" title="Gender">
+                <option value="">Male</option>
+                <option value="">Female</option>
+                <option value="">Trans</option>
+            </select> <br><br>
+            <b>Mobile No :</b> &nbsp; &nbsp;&nbsp; &nbsp;
+
+             <input id="number" name="number" type="number" placeholder="mob no"> <br><br>  
+
+            <b>Address :</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+
+            <input id="address" name="address" type="text" placeholder="Enter your address"><br><br> 
+
+            <b>Reason for <br> Appointment :</b> &nbsp;
+
+            <input id="reason" name="reason" type="text" placeholder="Reason"><br><br>
+
+            <b>Submit :</b> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; 
+
+            <input type="submit" id="submit-btn">
+        </form>
+       </div>
+
+       </div>
+
+       </header>
+    <div class="main">
+    <header>
+        <!-- <div class="logo">
+                    <img src="img/logo.PNG" alt="logo" width="100px" height="">
+        </div> -->
+        
+               <div class="bg">
+                <!-- <img src="img/dr.jpg" alt="doctor"> -->
+       
+               </div>
+              
+        </div>
+        <div class="reqB">
+        
+        <p>Delivering Cutting-Edge <br>
+Medical care, With Compassion
+             </p>
+           
+        <div >
+            <button id="bt2">Request a Appointment</button>
+        </div>
+        </div>
+    </header>
+    <br><br>
+    <div class="vid" >
+        <video src="vid/meeting.mp4" autoplay loop></video>
+        <video src="vid/BPcheck.mp4" autoplay loop></video>
+    </div>
+    
+
+    <footer>
+        <div class="onediv">
+            
+            <p id="p1"><u>Our Partners</u> : </p>
+            <img src="img/apollologo.webp" alt="">
+            <img src="img/fortisLogo.webp" alt="">
+            <img src="img/lilaLogo.webp" alt="">
+            <img style="width: 150px;" src="img/maxLogo.webp" alt="">
+        </div>
+
+        <div class="midDiv">
+             <p > <h3><u>Address</u> : </h3>  <p id="p2" >12 Km Stone,<br>
+                 Amritsar-Jalandhar,<br>G.T Road,<br>Amritsar-143001(PB) ,<br> India</p>
+             </p>
+             <p > <h3><u>Contact</u> : </h3><p id="p3">8872009951<br>
+                                            8872009950<br>
+                                            (24/7 Support Line)</p>
+             </p>
+        </div>
+        
+        <div class="endDiv">
+                <p ><u><h4>© 2020 AGC Amritsar. All rights reserved</h4><u> </p>
+        </div>
+
+    </footer>
+    
+  </body>
+  <script src="script.js"></script>
+</html>
