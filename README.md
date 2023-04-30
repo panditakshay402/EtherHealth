@@ -7,7 +7,7 @@
 
 <body>
   <h1>EtherHealth</h1>
-  <p>EtherHealth is a web application that uses blockchain technology to securely store and manage medical records. The application allows users to create and manage their health profiles, as well as grant access to healthcare providers and other authorized parties. The project uses JavaScript, Firebase, TypeScript, HTML, and CSS to build a modern and scalable web application that provides a seamless user experience.</p>
+  <p>EtherHealth is a web application that uses blockchain technology to securely store and manage medical records. The application allows users to create and manage their health profiles, as well as grant access to healthcare providers and other authorized parties. The project uses <h3>JavaScript</h3>,<h3>TypeScript</h3>, <h3>Firebase</h3>,HTML, and CSS to build a modern and scalable web application that provides a seamless user experience.</p>
 
   <h2>Getting Started</h2>
   <p>To get started with EtherHealth, you'll need to clone this repository to your local machine and install the necessary dependencies. You can do this by running the following commands:</p>
