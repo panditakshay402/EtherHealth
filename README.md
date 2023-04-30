@@ -12,7 +12,7 @@
   <h2>Getting Started</h2>
   <p>To get started with EtherHealth, you'll need to clone this repository to your local machine and install the necessary dependencies. You can do this by running the following commands:</p>
 
-  <pre><code>git clone https://github.com/your_username/EtherHealth.git
+  <pre><code>git clone https://github.com/panditakshay402/EtherHealth.git
 cd EtherHealth
 npm install
 </code></pre>
