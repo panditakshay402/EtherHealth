@@ -1,226 +1,266 @@
-header{
-    width: 100%;
-    height: 100px;
+/* ===== EtherHealth — Custom CSS (Tailwind can't handle these) ===== */
+
+/* --- Smooth scroll --- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Glassmorphism backdrop-filter --- */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glass-strong {
+  background: rgba(10, 22, 40, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glass-card {
+  background: rgba(15, 31, 58, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glass-modal {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* --- Gradient text --- */
+.gradient-text {
+  background: linear-gradient(135deg, #22c55e, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* --- Gradient button background --- */
+.btn-gradient {
+  background: linear-gradient(135deg, #22c55e, #10b981);
+}
+
+/* --- Accent gradient top line for cards --- */
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(135deg, #22c55e, #10b981);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+/* --- Button shimmer effect --- */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-shimmer:hover::before {
+  left: 100%;
+}
+
+/* --- Hero overlay gradient --- */
+.hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(10, 22, 40, 0.92) 0%,
+    rgba(10, 22, 40, 0.7) 50%,
+    rgba(10, 22, 40, 0.85) 100%
+  );
+}
+
+/* --- Decorative divider line --- */
+.divider-line {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* --- Custom select arrow --- */
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+/* --- Keyframe Animations --- */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+@keyframes float-orb {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -30px); }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s infinite;
+}
+
+.animate-float-orb {
+  animation: float-orb 8s ease-in-out infinite;
+}
+
+.animate-float-orb-reverse {
+  animation: float-orb 10s ease-in-out infinite reverse;
+}
+
+/* --- Scroll fade-in animation --- */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Modal transitions --- */
+.modal-overlay {
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay .modal-content {
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay:not(.active) {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-overlay:not(.active) .modal-content {
+  transform: scale(0.9) translateY(20px);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.modal-overlay.active .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* --- Toast transitions --- */
+.toast-notification {
+  transform: translateY(120px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.toast-notification.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* --- Hamburger animation --- */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* --- Navbar scroll state --- */
+.navbar-scrolled {
+  background: rgba(10, 22, 40, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* --- Partner logo filter --- */
+.partner-logo-filter {
+  filter: brightness(0.7) contrast(0.9);
+}
+
+.partner-logo-filter:hover {
+  filter: brightness(1) contrast(1);
+}
+
+/* --- Form focus glow --- */
+.form-input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+  background: rgba(34, 197, 94, 0.03);
+}
+
+/* --- Dropdown panel hover entrance --- */
+.nav-dropdown .dropdown-panel {
+  transform: translateX(-50%) translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.nav-dropdown:hover .dropdown-panel {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: all !important;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* --- Mobile nav slide-in --- */
+@media (max-width: 768px) {
+  .nav-links-mobile {
+    position: fixed;
     top: 0;
-    left: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 360px;
+    height: 100vh;
+    background: rgba(10, 22, 40, 0.98);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    transition: right 0.3s ease;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    overflow-y: auto;
+  }
+
+  .nav-links-mobile.open {
     right: 0;
-    z-index: 999;
-    
-    
-}
-.navi{
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f8a5a5;
-    background-attachment: fixed;
-    position: fixed;
-}
-
-nav li {
-    display: inline-block;
-    margin-right: 0px;
   }
-  nav li.dropdown:hover > .dropdown-menu {
+
+  .mobile-dropdown-panel {
+    display: none;
+  }
+
+  .nav-dropdown.mobile-open .mobile-dropdown-panel {
     display: block;
   }
-  
-  nav .dropdown-menu {
-    display: none;
-    width: 520px;
-    position: absolute;
-    z-index: 999;
-    
-  }
-  
-  
-
-  nav .dropdown-menu li {
-    display: block;
-  }
-  css
-
-/* Set the background color for the dropdown menu */
-.dropdown {
-  background-color: #fff;
-  
-}
-
-/* Set the background color for the dropdown menu options */
-.dropdown .dropdown-menu {
-  background-color: #f5d3d3;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 15px;
-}
-
-.navi .logo img{
-    padding-left: 5px;
-    width: 150px;
-    height: 90px;
-}
-
-.navi nav{
-    width: 850px;
-    display: flex;
-    justify-content: space-around;
-    
-   
-}
-.navi nav a{
-   
-    text-decoration-style: solid;
-    color: brown;
-    text-decoration: wavy;
-    text-transform: uppercase;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    
-}
-
-.navi button{
-   
-    padding: 12px 45px;
-     text-align: center;
-     font-size: 20px;
-     color: #fff;
-     border: none;
-     background-color: rgba(31, 1, 1, 0.6);
-     border-radius: 10px;
-     margin-right: 10px;
-
-}
-bt1{
-    display: none;
-}
-
-
-
-.navOptTextDesign{
-
-    color: brown;
-
-}
-
-#form1 {
-   
-    padding: 25px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(250, 183, 183, 0.5);
-    z-index: 9;
-    border-radius: 15px;
-  }
-  
-
-  
-
-.bg{ width:100% ;
-    height: 1500px;
-    background-image: url(img/dr.jpg);
-    background-repeat: no-repeat;
-    background-size:cover;
-    background-attachment: fixed;
-}
-
-.reqB{
-    margin-left: 800px;
-    margin-top: 180px;
-}
-.para{
-    margin-top: 100px;
-}
-/* .para p{
-    padding: 90px 790px;
-   text-decoration: solid;
-   color: #fd7272;
-   font-size: 30px;
-} */
-.reqB p{
- 
-    text-decoration: solid;
-    color: #fd7272;
-    font-size: 35px;
-    /* margin-bottom: 10px;
-    padding-bottom: 10px; */
-}
-.reqB button{
-   
-    padding: 12px 45px;
-    font-size: 20px;
-  /* margin-top: 10px; */
-  
-    border: none;
-    color: #fff;
-    border-radius: 10px;
-    background-color: rgba(39, 1, 1, 0.8);
-}
-.vid{
-    height: 800px;
-    background-color: rgb(240, 168, 168);
-}
-.vid video{
-    margin-top: 50px;
-    /* display: flex;
-    justify-content: space-between; */
-    width: 600px;
-    border-radius: 25px;
-    box-shadow: 0px 0px 20px rgb(236, 11, 11);
-   
-}
-.vid video:first-child{
-    margin-left: 0px;
-    margin-top: 0px;
-}
-.vid video:last-child{
-    margin-left:  120px;
-    
-}
-footer #p1{
-    
-    color: rgb(5, 5, 4);
-    font-size: 28px;
-    
-}
-footer div{
-    margin: 0px;
-    padding: 0px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-footer img{
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center;
-    display: inline-block; */
-    margin: 0px;
-    padding: 0px;
-    width: 100px;
-    height:100px;
-}
-
-.onediv{ width: 100%;
-    height: 100px;
-    background-color:#fff;
-    
-}
-.midDiv{ width: 100%;
-    height: 180px;
-    background-color: #f7d7d7;
-    
-}
-.midDiv #p2{
-    font-size: 18px;
-}
-.midDiv #p3{
-    font-size: 18px;
-}
-.endDiv{ width: 100%;
-    height: 50px;
-    background-color:#fff;
-    
 }

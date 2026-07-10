@@ -1,38 +1,6 @@
-// import * as functions from "firebase-functions";
+// ===== EtherHealth — Modern Interactive Script =====
 
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   response.send("Hello from Firebase!");
-// });
-
-
-// If you want the dropdown to disappear when you move the mouse away
-var dropdowns = document.querySelectorAll('.dropdown');
-
-dropdowns.forEach(function(dropdown) {
-  dropdown.addEventListener('mouseleave', function() {
-    dropdown.querySelector('.dropdown-menu').style.display = 'none';
-  });
-});
-
-const button1 = document.getElementById("bt1");
-const button2 = document.getElementById("bt2");
-const Aptform = document.getElementById("form1");
-
-// Add an event listener to the button
-button1.addEventListener('click', function() {
-  // Display the form
-  Aptform.style.display = 'block';
-});
-button2.addEventListener('click', function()  {
-  // Display the form
-  Aptform.style.display = 'block';
-});
-
-
-
-
-
-
+// --- Firebase Configuration ---
 const firebaseConfig = {
   apiKey: "AIzaSyDjPuTIJH8ZaCT3G6xkXSvAX9XsaxWdL_8",
   authDomain: "healthcare-e994c.firebaseapp.com",
@@ -45,41 +13,165 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-var healthcareDB= firebase.database().ref("healthcare");
+var healthcareDB = firebase.database().ref("healthcare");
 
-document.getElementsByClassName("form1").addEventListener("submit",submitForm);
 
-// var database = firebase.database();
-// var formRef = database.ref('form-data');
+// --- DOM Elements ---
+const navbar = document.getElementById("navbar");
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("nav-links");
+const button1 = document.getElementById("bt1");
+const button2 = document.getElementById("bt2");
+const modalOverlay = document.getElementById("modal-overlay");
+const modalClose = document.getElementById("modal-close");
+const appointmentForm = document.getElementById("form1");
+const toast = document.getElementById("toast");
 
-function submitForm(e){
-e.preventDefault();
-  var name=document.getElementById("name").value;
-  var age=document.getElementById("age").value;
-  var gender=document.getElementById("gender").value;
-  var number=document.getElementById("number").value;
-  var address=document.getElementById("address").value;
-  var reason=document.getElementById("reason").value;
 
-console.log(name,age,gender,number,address,reason);
-  
+// --- Mobile Navigation ---
+hamburger.addEventListener("click", function () {
+  hamburger.classList.toggle("active");
+  navLinks.classList.toggle("open");
+});
+
+// Close mobile nav when a link is clicked
+navLinks.querySelectorAll(".nav-link").forEach(function (link) {
+  link.addEventListener("click", function () {
+    hamburger.classList.remove("active");
+    navLinks.classList.remove("open");
+  });
+});
+
+// Mobile dropdown toggles
+if (window.innerWidth <= 768) {
+  document.querySelectorAll(".nav-dropdown > .nav-link").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      this.parentElement.classList.toggle("mobile-open");
+    });
+  });
+}
+
+
+// --- Navbar Scroll Effect ---
+var lastScroll = 0;
+
+window.addEventListener("scroll", function () {
+  var currentScroll = window.pageYOffset;
+
+  if (currentScroll > 50) {
+    navbar.classList.add("scrolled");
+  } else {
+    navbar.classList.remove("scrolled");
   }
-  const getElementVal=(id)=>{
-    return document,getElementById(id).value;
 
-  // var formData={
-  //    name:name,age:age,gender:gender,number:number,address:address,reason:reason
+  lastScroll = currentScroll;
+});
 
-  };
 
-  // formRef.push(formData);
-  // document.getElementById("form1").reset();
-  // alert("Your Appointment Booked!");
- 
+// --- Modal Open / Close ---
+function openModal() {
+  modalOverlay.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-// var database= firebase.database();
-// var myRef = database.ref("C:\Users\aksha\OneDrive\Desktop\Web\web practice\web project");
-// myRef.set("Hello");
+function closeModal() {
+  modalOverlay.classList.remove("active");
+  document.body.style.overflow = "";
+}
 
-// var submitBtm=document.getElementById("submit-btn");
-// submitBtm.addEventListener("click",submitForm);
+button1.addEventListener("click", openModal);
+button2.addEventListener("click", openModal);
+modalClose.addEventListener("click", closeModal);
+
+// Close on overlay backdrop click
+modalOverlay.addEventListener("click", function (e) {
+  if (e.target === modalOverlay) {
+    closeModal();
+  }
+});
+
+// Close on Escape key
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    closeModal();
+  }
+});
+
+
+// --- Form Submission ---
+appointmentForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  var name = document.getElementById("name").value;
+  var age = document.getElementById("age").value;
+  var gender = document.getElementById("gender").value;
+  var number = document.getElementById("number").value;
+  var address = document.getElementById("address").value;
+  var reason = document.getElementById("reason").value;
+
+  console.log("Appointment:", name, age, gender, number, address, reason);
+
+  // Push to Firebase
+  healthcareDB.push({
+    name: name,
+    age: age,
+    gender: gender,
+    number: number,
+    address: address,
+    reason: reason,
+    timestamp: Date.now()
+  });
+
+  // Close modal and show toast
+  closeModal();
+  appointmentForm.reset();
+  showToast();
+});
+
+
+// --- Toast Notification ---
+function showToast() {
+  toast.classList.add("show");
+  setTimeout(function () {
+    toast.classList.remove("show");
+  }, 4000);
+}
+
+
+// --- Scroll-triggered Fade-in Animations ---
+var fadeElements = document.querySelectorAll(".fade-in");
+
+var observer = new IntersectionObserver(
+  function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.15,
+    rootMargin: "0px 0px -40px 0px"
+  }
+);
+
+fadeElements.forEach(function (el) {
+  observer.observe(el);
+});
+
+
+// --- Smooth scroll for anchor links ---
+document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+  anchor.addEventListener("click", function (e) {
+    var targetId = this.getAttribute("href");
+    if (targetId === "#") return;
+
+    var targetEl = document.querySelector(targetId);
+    if (targetEl) {
+      e.preventDefault();
+      targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+});

@@ -4,252 +4,477 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>EtherHealth — Modern Healthcare, Compassionate Care</title>
+    <meta name="description" content="EtherHealth delivers cutting-edge medical care with compassion. Book appointments, access telemedicine, and join wellness programs online.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS v4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Custom CSS (glassmorphism, animations, etc.) -->
     <link rel="stylesheet" href="style.css">
 
-    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";></script>
-    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-analytics.js";></script>
-  
+    <!-- Tailwind v4 custom theme -->
+    <style type="text/tailwindcss">
+        @theme {
+            --color-bg-primary: #0a1628;
+            --color-bg-secondary: #0f1f3a;
+            --color-accent: #22c55e;
+            --color-accent-blue: #10b981;
+            --color-text-primary: #e8ecf1;
+            --color-text-secondary: #94a3b8;
+            --color-text-muted: #64748b;
+            --color-border-glass: rgba(255, 255, 255, 0.1);
+            --color-glass: rgba(255, 255, 255, 0.05);
+            --color-glass-hover: rgba(255, 255, 255, 0.1);
+            --font-family-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+        }
+    </style>
 
+    <!-- Firebase SDKs (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-analytics-compat.js"></script>
 </head>
-<body>
-   <header> 
-    <div class="navi">
-        <div class="logo">
-            <video loop autoplay src="vid/Logo Symbol.mp4" width="110px" height="90px" alt="logo">
-        </div>
+<body class="bg-bg-primary text-text-primary font-sans leading-relaxed overflow-x-hidden antialiased">
 
-        <nav>
-            <ul >
-                 <li class="dropdown">
-                    <a href="" >About </a> 
-                        <ul class="dropdown-menu">
+    <!-- ===== Navigation ===== -->
+    <nav class="fixed top-0 left-0 right-0 z-[1000] py-4 transition-all duration-300" id="navbar">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2.5 text-xl font-bold text-text-primary z-[1001]" aria-label="EtherHealth Home">
+                <img src="img/ether_health_logo.png" alt="EtherHealth Logo" class="w-9 h-9 object-contain" aria-hidden="true">
+                <span>Ether<span class="text-accent">Health</span></span>
+            </a>
 
-            <li><a href=""><h4>Welcome to our healthcare website!</h4></br></br>
-<h5><i> We are a team of dedicated healthcare professionals who are committed to providing you with high-quality healthcare services.
-</br></br>Our mission is to help you achieve optimal health and wellness by offering comprehensive and personalized healthcare solutions.
-Our team includes doctors, nurses, and other healthcare professionals who are experts in their respective fields.
-</br> We believe in a collaborative approach to healthcare, and we work closely with each other to ensure that our patients receive the best possible care.
-At our healthcare facility, we offer a wide range of services,
- including preventive care, diagnostic testing, treatment for acute and chronic illnesses, and management of chronic conditions.
-</br> We also offer counseling and education to help our patients make informed decisions about their health and wellbeing.
-We are dedicated to providing compassionate and personalized care to each and every patient who walks through our doors.
- We understand that every patient is unique, and we strive to tailor our services to meet the individual needs of each patient.
-Thank you for choosing our healthcare facility for your healthcare needs. </br>
-We look forward to serving you and helping you achieve your health and wellness goals.</i></h5></a></li>
-            </ul>
-          </li>
-        </ul>
-
-            <!-- <ul>
-                <li class="dropdown">
-                    <a href="" >Conditions</a>
-                    <ul class="dropdown-menu">
-                        <li> 
-                            <p> sab badhiya</p>
-
-                        </li>
-
-                    </ul>
+            <!-- Nav Links (Desktop) -->
+            <ul class="hidden md:flex items-center gap-1" id="nav-links">
+                <!-- About Dropdown -->
+                <li class="nav-dropdown relative">
+                    <a href="#about" class="flex items-center gap-1 px-4 py-2.5 text-sm font-medium text-text-secondary rounded-lg hover:text-text-primary hover:bg-glass transition-all duration-200">
+                        About <span class="text-[0.7rem] transition-transform duration-200 chevron">▾</span>
+                    </a>
+                    <div class="dropdown-panel absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 min-w-[280px] glass-card border border-border-glass rounded-xl p-2 opacity-0 invisible pointer-events-none shadow-2xl">
+                        <a href="#about" class="block px-3.5 py-2.5 rounded-lg text-text-secondary text-[0.88rem] hover:bg-glass-hover hover:text-accent transition-all duration-200">
+                            <div class="font-semibold text-text-primary mb-0.5">Our Mission</div>
+                            <div class="text-xs text-text-muted">Compassionate, personalized healthcare</div>
+                        </a>
+                        <a href="#about" class="block px-3.5 py-2.5 rounded-lg text-text-secondary text-[0.88rem] hover:bg-glass-hover hover:text-accent transition-all duration-200">
+                            <div class="font-semibold text-text-primary mb-0.5">Our Team</div>
+                            <div class="text-xs text-text-muted">Expert doctors, nurses & specialists</div>
+                        </a>
+                    </div>
                 </li>
-            </ul> -->
 
-            <ul>
-                <li class="dropdown">
-                    <a href="#" >Services</a>
-                     <ul class="dropdown-menu" style="width:200px" >
-                        <li> 
-                            <a href=""><h5>Online Appointment Booking</h5></a>
-                        </li>
-                        <li> 
-                            <a href=""><h5>Telemedicine Consultations</h5></a>
-                        </li>
-                        <li> 
-                          <a href=""><h5>Wellness Programs</h5></a>
-                        </li>
-
-                    </ul>
+                <!-- Services Dropdown -->
+                <li class="nav-dropdown relative">
+                    <a href="#services" class="flex items-center gap-1 px-4 py-2.5 text-sm font-medium text-text-secondary rounded-lg hover:text-text-primary hover:bg-glass transition-all duration-200">
+                        Services <span class="text-[0.7rem] transition-transform duration-200 chevron">▾</span>
+                    </a>
+                    <div class="dropdown-panel absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 min-w-[280px] glass-card border border-border-glass rounded-xl p-2 opacity-0 invisible pointer-events-none shadow-2xl">
+                        <a href="#services" class="block px-3.5 py-2.5 rounded-lg text-text-secondary text-[0.88rem] hover:bg-glass-hover hover:text-accent transition-all duration-200">
+                            <div class="font-semibold text-text-primary mb-0.5">Online Appointments</div>
+                            <div class="text-xs text-text-muted">Book your visit in seconds</div>
+                        </a>
+                        <a href="#services" class="block px-3.5 py-2.5 rounded-lg text-text-secondary text-[0.88rem] hover:bg-glass-hover hover:text-accent transition-all duration-200">
+                            <div class="font-semibold text-text-primary mb-0.5">Telemedicine</div>
+                            <div class="text-xs text-text-muted">Consult from anywhere</div>
+                        </a>
+                        <a href="#services" class="block px-3.5 py-2.5 rounded-lg text-text-secondary text-[0.88rem] hover:bg-glass-hover hover:text-accent transition-all duration-200">
+                            <div class="font-semibold text-text-primary mb-0.5">Wellness Programs</div>
+                            <div class="text-xs text-text-muted">Preventive care & lifestyle coaching</div>
+                        </a>
+                    </div>
                 </li>
-            </ul>
 
-            <ul>
-                <li class="dropdown">
-                    <a href="" >For Patients</a>
-                    <ul class="dropdown-menu">
-                        <li> 
-                            <p> sab badhiya</p>
-
-                        </li>
-
-                    </ul>
+                <!-- Providers Dropdown -->
+                <li class="nav-dropdown relative">
+                    <a href="#partners" class="flex items-center gap-1 px-4 py-2.5 text-sm font-medium text-text-secondary rounded-lg hover:text-text-primary hover:bg-glass transition-all duration-200">
+                        Providers <span class="text-[0.7rem] transition-transform duration-200 chevron">▾</span>
+                    </a>
+                    <div class="dropdown-panel absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 min-w-[280px] glass-card border border-border-glass rounded-xl p-2 opacity-0 invisible pointer-events-none shadow-2xl">
+                        <a href="https://www.apollohospitals.com/" target="_blank" rel="noopener" class="block px-3.5 py-2.5 rounded-lg text-text-secondary text-[0.88rem] hover:bg-glass-hover hover:text-accent transition-all duration-200">
+                            <div class="font-semibold text-text-primary mb-0.5">Apollo Hospitals</div>
+                            <div class="text-xs text-text-muted">Leading multi-specialty network</div>
+                        </a>
+                        <a href="https://lilavatihospital.com/" target="_blank" rel="noopener" class="block px-3.5 py-2.5 rounded-lg text-text-secondary text-[0.88rem] hover:bg-glass-hover hover:text-accent transition-all duration-200">
+                            <div class="font-semibold text-text-primary mb-0.5">Lilavati Hospital</div>
+                            <div class="text-xs text-text-muted">Excellence in patient care</div>
+                        </a>
+                        <a href="https://www.fortishealthcare.com/" target="_blank" rel="noopener" class="block px-3.5 py-2.5 rounded-lg text-text-secondary text-[0.88rem] hover:bg-glass-hover hover:text-accent transition-all duration-200">
+                            <div class="font-semibold text-text-primary mb-0.5">Fortis Healthcare</div>
+                            <div class="text-xs text-text-muted">Trusted healthcare partner</div>
+                        </a>
+                    </div>
                 </li>
-            </ul>
 
-            <ul>
-                <li class="dropdown">
-                    <a href="">Our Providers</a>
-                    <ul class="dropdown-menu" style="width:200px">
-                        <li> 
+                <li><a href="#contact" class="px-4 py-2.5 text-sm font-medium text-text-secondary rounded-lg hover:text-text-primary hover:bg-glass transition-all duration-200">Contact</a></li>
 
-
-                            <a href="https://www.apollohospitals.com/"><h5>Apollo</h5></a>
-                        </li>
-                        <li> 
-                            <a href="https://lilavatihospital.com/"><h5>Lilavati</h5></a>
-                        </li>
-                        <li> 
-                          <a href="https://www.fortishealthcare.com/"><h5> Fortis</h5></a>
-                            
-
-                        </li>
-
-                    </ul>
-                </li>
-            </ul>
-            <ul>
-                <li class="dropdown">
-                    <a href="">Our Locations</a>
-                    <ul class="dropdown-menu" style="width:290px">
-                        <li> 
-                            <p  > <pre class="navOptTextDesign"><b><u>ADDRESS</u> :</b>  12 Km Stone,
-           Amritsar-Jalandhar,
-           G.T Road,
-           Amritsar-143001(PB) ,
-           India .      
-                                          
-                                  </pre> </p>
-
-                        </li>
-
-                    </ul>
-                </li>
-            </ul>
-            <ul>
-                <li class="dropdown">
-                    <a p href="">Contact Us</a>
-                    <ul class="dropdown-menu" style="width:200px">
-                        <li> 
-                            <p class="navOptTextDesign">
-                                <b><u>MOBILE</u> :</b> 
-                                8872009951<br>
-                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                                &nbsp; &nbsp; 8872009950<br>
-                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(24/7 Support Line)</p>
-
-                        </li>
-
-                    </ul>
+                <li class="ml-3">
+                    <button id="bt1" class="btn-gradient btn-shimmer inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold rounded-xl text-bg-primary shadow-[0_4px_20px_rgba(34,197,94,0.3)] hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(34,197,94,0.45)] transition-all duration-300 cursor-pointer">
+                        Book Appointment
+                    </button>
                 </li>
             </ul>
 
-       </nav>
-       
+            <!-- Mobile Nav Links -->
+            <ul class="nav-links-mobile md:hidden flex flex-col items-stretch pt-20 px-6 pb-8 gap-1 z-[1000]" id="nav-links-mobile">
+                <li class="nav-dropdown">
+                    <a href="#about" class="block px-4 py-3.5 text-base font-medium text-text-secondary rounded-lg hover:text-text-primary hover:bg-glass transition-all duration-200">About</a>
+                </li>
+                <li class="nav-dropdown">
+                    <a href="#services" class="block px-4 py-3.5 text-base font-medium text-text-secondary rounded-lg hover:text-text-primary hover:bg-glass transition-all duration-200">Services</a>
+                </li>
+                <li class="nav-dropdown">
+                    <a href="#partners" class="block px-4 py-3.5 text-base font-medium text-text-secondary rounded-lg hover:text-text-primary hover:bg-glass transition-all duration-200">Providers</a>
+                </li>
+                <li>
+                    <a href="#contact" class="block px-4 py-3.5 text-base font-medium text-text-secondary rounded-lg hover:text-text-primary hover:bg-glass transition-all duration-200">Contact</a>
+                </li>
+                <li class="mt-4">
+                    <button class="open-modal-btn btn-gradient btn-shimmer w-full flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold rounded-xl text-bg-primary cursor-pointer">
+                        Book Appointment
+                    </button>
+                </li>
+            </ul>
 
-       
-
-
-
-
-
-
-
-
-
-       <div id="but1">
-        <button id="bt1">Book an Appointment</button>
-        <form id="form1" style="display: none;"  >
-          <b>  Name : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</b>
-
-          <input type="text" id="name" name="name" placeholder="Enter your full name"><br><br>
-
-            <b>Age :</b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-
-             <input id="age" type="num" name="age" placeholder="age"> <br><br>
-
-            <b>gender :</b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-
-            <select id="gender" name="gender" title="Gender">
-                <option value="">Male</option>
-                <option value="">Female</option>
-                <option value="">Trans</option>
-            </select> <br><br>
-            <b>Mobile No :</b> &nbsp; &nbsp;&nbsp; &nbsp;
-
-             <input id="number" name="number" type="number" placeholder="mob no"> <br><br>  
-
-            <b>Address :</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-
-            <input id="address" name="address" type="text" placeholder="Enter your address"><br><br> 
-
-            <b>Reason for <br> Appointment :</b> &nbsp;
-
-            <input id="reason" name="reason" type="text" placeholder="Reason"><br><br>
-
-            <b>Submit :</b> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; 
-
-            <input type="submit" id="submit-btn">
-        </form>
-       </div>
-
-       </div>
-
-       </header>
-    <div class="main">
-    <header>
-        <!-- <div class="logo">
-                    <img src="img/logo.PNG" alt="logo" width="100px" height="">
-        </div> -->
-        
-               <div class="bg">
-                <!-- <img src="img/dr.jpg" alt="doctor"> -->
-       
-               </div>
-              
+            <!-- Hamburger -->
+            <button class="hamburger flex md:hidden flex-col gap-[5px] bg-transparent p-1.5 z-[1001] cursor-pointer" id="hamburger" aria-label="Toggle navigation">
+                <span class="block w-6 h-0.5 bg-text-primary rounded-sm transition-all duration-300 origin-center"></span>
+                <span class="block w-6 h-0.5 bg-text-primary rounded-sm transition-all duration-300 origin-center"></span>
+                <span class="block w-6 h-0.5 bg-text-primary rounded-sm transition-all duration-300 origin-center"></span>
+            </button>
         </div>
-        <div class="reqB">
-        
-        <p>Delivering Cutting-Edge <br>
-Medical care, With Compassion
-             </p>
-           
-        <div >
-            <button id="bt2">Request a Appointment</button>
-        </div>
-        </div>
-    </header>
-    <br><br>
-    <div class="vid" >
-        <video src="vid/meeting.mp4" autoplay loop></video>
-        <video src="vid/BPcheck.mp4" autoplay loop></video>
-    </div>
-    
+    </nav>
 
-    <footer>
-        <div class="onediv">
-            
-            <p id="p1"><u>Our Partners</u> : </p>
-            <img src="img/apollologo.webp" alt="">
-            <img src="img/fortisLogo.webp" alt="">
-            <img src="img/lilaLogo.webp" alt="">
-            <img style="width: 150px;" src="img/maxLogo.webp" alt="">
+    <!-- ===== Hero Section ===== -->
+    <section class="relative min-h-screen flex items-center overflow-hidden" id="hero">
+        <!-- Background -->
+        <div class="absolute inset-0 z-0">
+            <img src="img/dr.jpg" alt="Healthcare professionals" class="w-full h-full object-cover brightness-[0.3]">
+            <div class="hero-overlay absolute inset-0"></div>
         </div>
+        <!-- Floating orbs -->
+        <div class="absolute w-[500px] h-[500px] rounded-full bg-accent blur-[80px] opacity-15 pointer-events-none -top-[100px] -right-[100px] animate-float-orb z-0"></div>
+        <div class="absolute w-[400px] h-[400px] rounded-full bg-accent-blue blur-[80px] opacity-15 pointer-events-none -bottom-[100px] left-[20%] animate-float-orb-reverse z-0"></div>
 
-        <div class="midDiv">
-             <p > <h3><u>Address</u> : </h3>  <p id="p2" >12 Km Stone,<br>
-                 Amritsar-Jalandhar,<br>G.T Road,<br>Amritsar-143001(PB) ,<br> India</p>
-             </p>
-             <p > <h3><u>Contact</u> : </h3><p id="p3">8872009951<br>
-                                            8872009950<br>
-                                            (24/7 Support Line)</p>
-             </p>
+        <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+            <div class="max-w-[680px] pt-[100px] fade-in">
+                <!-- Tag -->
+                <div class="inline-flex items-center gap-2 bg-glass border border-border-glass rounded-full px-[18px] py-2 text-[0.82rem] text-accent font-medium tracking-wide mb-7">
+                    <span class="w-2 h-2 bg-accent rounded-full animate-pulse-dot"></span>
+                    Now accepting new patients
+                </div>
+                <!-- Heading -->
+                <h1 class="text-[clamp(2.5rem,6vw,4rem)] font-extrabold leading-[1.1] mb-6 tracking-tight">
+                    Delivering Cutting-Edge Medical Care, <span class="gradient-text">With Compassion</span>
+                </h1>
+                <p class="text-lg text-text-secondary leading-relaxed mb-10 max-w-[520px]">
+                    We combine expert healthcare professionals, advanced technology, and genuine compassion to provide you with comprehensive, personalized medical solutions.
+                </p>
+                <!-- Buttons -->
+                <div class="flex gap-4 flex-wrap">
+                    <button id="bt2" class="btn-gradient btn-shimmer inline-flex items-center gap-2 px-8 py-3.5 text-[0.95rem] font-semibold rounded-xl text-bg-primary shadow-[0_4px_20px_rgba(34,197,94,0.3)] hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(34,197,94,0.45)] transition-all duration-300 cursor-pointer">
+                        Request an Appointment →
+                    </button>
+                    <a href="#services" class="inline-flex items-center gap-2 px-8 py-3.5 text-[0.95rem] font-semibold rounded-xl text-text-primary border border-border-glass hover:border-accent hover:text-accent hover:bg-accent/5 hover:-translate-y-0.5 transition-all duration-300">
+                        Explore Services
+                    </a>
+                </div>
+                <!-- Stats -->
+                <div class="flex gap-12 mt-16 pt-10 border-t border-border-glass max-sm:flex-col max-sm:gap-5">
+                    <div>
+                        <div class="text-3xl font-bold gradient-text">24/7</div>
+                        <div class="text-sm text-text-muted mt-1">Support Line</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold gradient-text">50+</div>
+                        <div class="text-sm text-text-muted mt-1">Specialists</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold gradient-text">10K+</div>
+                        <div class="text-sm text-text-muted mt-1">Patients Served</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="endDiv">
-                <p ><u><h4>© 2020 AGC Amritsar. All rights reserved</h4><u> </p>
-        </div>
+    </section>
 
+    <!-- ===== About Section ===== -->
+    <section class="py-28 relative" id="about">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                <!-- Image -->
+                <div class="rounded-2xl overflow-hidden shadow-2xl border border-border-glass group fade-in order-first">
+                    <img src="img/dr.jpg" alt="Our dedicated healthcare team" class="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-[1.03]">
+                </div>
+                <!-- Text -->
+                <div class="fade-in">
+                    <div class="inline-flex items-center gap-2 bg-glass border border-border-glass rounded-full px-4 py-1.5 text-[0.8rem] text-accent uppercase tracking-[1.5px] font-semibold mb-4">
+                        <span class="w-1.5 h-1.5 bg-accent rounded-full animate-pulse-dot"></span> About Us
+                    </div>
+                    <h2 class="text-[clamp(1.8rem,4vw,2.6rem)] font-bold leading-tight mb-4">
+                        A Team Dedicated to <span class="gradient-text">Your Wellness</span>
+                    </h2>
+                    <p class="text-text-secondary text-base leading-relaxed mb-4">
+                        Welcome to EtherHealth! We are a team of dedicated healthcare professionals committed to providing you with high-quality healthcare services.
+                    </p>
+                    <p class="text-text-secondary text-base leading-relaxed mb-4">
+                        Our mission is to help you achieve optimal health and wellness by offering comprehensive and personalized healthcare solutions. Our team includes doctors, nurses, and specialists who are experts in their respective fields.
+                    </p>
+                    <p class="text-text-secondary text-base leading-relaxed mb-4">
+                        We offer a wide range of services, including preventive care, diagnostic testing, treatment for acute and chronic illnesses, and management of chronic conditions.
+                    </p>
+                    <!-- Highlights -->
+                    <div class="grid grid-cols-2 max-sm:grid-cols-1 gap-4 mt-8">
+                        <div class="flex items-center gap-2.5 text-sm text-text-secondary">
+                            <span class="w-5 h-5 btn-gradient rounded-full flex items-center justify-center text-[0.65rem] text-bg-primary font-bold shrink-0">✓</span>
+                            Preventive Care
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm text-text-secondary">
+                            <span class="w-5 h-5 btn-gradient rounded-full flex items-center justify-center text-[0.65rem] text-bg-primary font-bold shrink-0">✓</span>
+                            Diagnostic Testing
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm text-text-secondary">
+                            <span class="w-5 h-5 btn-gradient rounded-full flex items-center justify-center text-[0.65rem] text-bg-primary font-bold shrink-0">✓</span>
+                            Chronic Care Mgmt
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm text-text-secondary">
+                            <span class="w-5 h-5 btn-gradient rounded-full flex items-center justify-center text-[0.65rem] text-bg-primary font-bold shrink-0">✓</span>
+                            Health Counseling
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Services Section ===== -->
+    <section class="py-28 relative" id="services">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <div class="inline-flex items-center gap-2 bg-glass border border-border-glass rounded-full px-4 py-1.5 text-[0.8rem] text-accent uppercase tracking-[1.5px] font-semibold mb-4">
+                    <span class="w-1.5 h-1.5 bg-accent rounded-full animate-pulse-dot"></span> Services
+                </div>
+                <h2 class="text-[clamp(1.8rem,4vw,2.6rem)] font-bold leading-tight mb-4">
+                    What We <span class="gradient-text">Offer</span>
+                </h2>
+                <p class="text-text-secondary text-lg max-w-[600px] mx-auto leading-relaxed">
+                    From online appointments to comprehensive wellness programs, we provide healthcare solutions designed around your needs.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="service-card relative bg-glass border border-border-glass rounded-2xl p-9 transition-all duration-300 hover:bg-glass-hover hover:border-accent/30 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(34,197,94,0.15)] fade-in">
+                    <div class="w-13 h-13 bg-glass border border-border-glass rounded-xl flex items-center justify-center text-2xl mb-5">📅</div>
+                    <h3 class="text-lg font-semibold mb-2.5">Online Appointments</h3>
+                    <p class="text-text-secondary text-sm leading-relaxed">Book your visit in seconds. Choose your preferred doctor, date, and time — all from the comfort of your home.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="service-card relative bg-glass border border-border-glass rounded-2xl p-9 transition-all duration-300 hover:bg-glass-hover hover:border-accent/30 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(34,197,94,0.15)] fade-in">
+                    <div class="w-13 h-13 bg-glass border border-border-glass rounded-xl flex items-center justify-center text-2xl mb-5">💻</div>
+                    <h3 class="text-lg font-semibold mb-2.5">Telemedicine Consultations</h3>
+                    <p class="text-text-secondary text-sm leading-relaxed">Connect with our specialists via secure video calls. Get expert medical advice without leaving your home.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="service-card relative bg-glass border border-border-glass rounded-2xl p-9 transition-all duration-300 hover:bg-glass-hover hover:border-accent/30 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(34,197,94,0.15)] fade-in">
+                    <div class="w-13 h-13 bg-glass border border-border-glass rounded-xl flex items-center justify-center text-2xl mb-5">🧘</div>
+                    <h3 class="text-lg font-semibold mb-2.5">Wellness Programs</h3>
+                    <p class="text-text-secondary text-sm leading-relaxed">Personalized wellness plans covering nutrition, fitness, and mental health to keep you at your best.</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="service-card relative bg-glass border border-border-glass rounded-2xl p-9 transition-all duration-300 hover:bg-glass-hover hover:border-accent/30 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(34,197,94,0.15)] fade-in">
+                    <div class="w-13 h-13 bg-glass border border-border-glass rounded-xl flex items-center justify-center text-2xl mb-5">🏥</div>
+                    <h3 class="text-lg font-semibold mb-2.5">Preventive Care</h3>
+                    <p class="text-text-secondary text-sm leading-relaxed">Regular check-ups, screenings, and vaccinations to catch potential health issues before they become serious.</p>
+                </div>
+                <!-- Card 5 -->
+                <div class="service-card relative bg-glass border border-border-glass rounded-2xl p-9 transition-all duration-300 hover:bg-glass-hover hover:border-accent/30 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(34,197,94,0.15)] fade-in">
+                    <div class="w-13 h-13 bg-glass border border-border-glass rounded-xl flex items-center justify-center text-2xl mb-5">🔬</div>
+                    <h3 class="text-lg font-semibold mb-2.5">Diagnostic Testing</h3>
+                    <p class="text-text-secondary text-sm leading-relaxed">State-of-the-art laboratory and imaging services for accurate, fast results you can trust.</p>
+                </div>
+                <!-- Card 6 -->
+                <div class="service-card relative bg-glass border border-border-glass rounded-2xl p-9 transition-all duration-300 hover:bg-glass-hover hover:border-accent/30 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(34,197,94,0.15)] fade-in">
+                    <div class="w-13 h-13 bg-glass border border-border-glass rounded-xl flex items-center justify-center text-2xl mb-5">❤️</div>
+                    <h3 class="text-lg font-semibold mb-2.5">Chronic Care Management</h3>
+                    <p class="text-text-secondary text-sm leading-relaxed">Ongoing support and personalized treatment plans for managing chronic conditions effectively.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Video Section ===== -->
+    <section class="py-28 bg-bg-secondary relative" id="videos">
+        <div class="divider-line absolute top-0 left-0 right-0 h-px"></div>
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <div class="inline-flex items-center gap-2 bg-glass border border-border-glass rounded-full px-4 py-1.5 text-[0.8rem] text-accent uppercase tracking-[1.5px] font-semibold mb-4">
+                    <span class="w-1.5 h-1.5 bg-accent rounded-full animate-pulse-dot"></span> Inside EtherHealth
+                </div>
+                <h2 class="text-[clamp(1.8rem,4vw,2.6rem)] font-bold leading-tight mb-4">
+                    See Our <span class="gradient-text">Care in Action</span>
+                </h2>
+                <p class="text-text-secondary text-lg max-w-[600px] mx-auto leading-relaxed">
+                    A glimpse into our daily commitment to compassionate, cutting-edge healthcare.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="rounded-2xl overflow-hidden border border-border-glass bg-bg-primary transition-all duration-300 hover:border-accent/30 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(34,197,94,0.15)] fade-in">
+                    <video src="vid/meeting.mp4" autoplay loop muted playsinline class="w-full h-[320px] object-cover block"></video>
+                    <div class="flex items-center gap-2 px-5 py-4 text-sm font-medium text-text-secondary">
+                        <span class="w-2 h-2 bg-accent rounded-full animate-pulse-dot"></span> Team Consultations
+                    </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-border-glass bg-bg-primary transition-all duration-300 hover:border-accent/30 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(34,197,94,0.15)] fade-in">
+                    <video src="vid/BPcheck.mp4" autoplay loop muted playsinline class="w-full h-[320px] object-cover block"></video>
+                    <div class="flex items-center gap-2 px-5 py-4 text-sm font-medium text-text-secondary">
+                        <span class="w-2 h-2 bg-accent rounded-full animate-pulse-dot"></span> Patient Checkups
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Partners Section ===== -->
+    <section class="py-20 relative" id="partners">
+        <div class="divider-line absolute top-0 left-0 right-0 h-px"></div>
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="text-center mb-12 fade-in">
+                <div class="inline-flex items-center gap-2 bg-glass border border-border-glass rounded-full px-4 py-1.5 text-[0.8rem] text-accent uppercase tracking-[1.5px] font-semibold mb-4">
+                    <span class="w-1.5 h-1.5 bg-accent rounded-full animate-pulse-dot"></span> Our Partners
+                </div>
+                <h2 class="text-[clamp(1.8rem,4vw,2.6rem)] font-bold leading-tight">
+                    Trusted by <span class="gradient-text">Leading Hospitals</span>
+                </h2>
+            </div>
+            <div class="flex items-center justify-center gap-12 flex-wrap max-sm:gap-6 fade-in">
+                <img class="w-[100px] h-[80px] max-sm:w-[70px] max-sm:h-[56px] object-contain partner-logo-filter opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300" src="img/apollologo.webp" alt="Apollo Hospitals">
+                <img class="w-[100px] h-[80px] max-sm:w-[70px] max-sm:h-[56px] object-contain partner-logo-filter opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300" src="img/fortisLogo.webp" alt="Fortis Healthcare">
+                <img class="w-[100px] h-[80px] max-sm:w-[70px] max-sm:h-[56px] object-contain partner-logo-filter opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300" src="img/lilaLogo.webp" alt="Lilavati Hospital">
+                <img class="w-[150px] h-[80px] max-sm:w-[100px] max-sm:h-[56px] object-contain partner-logo-filter opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300" src="img/maxLogo.webp" alt="Max Healthcare">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="bg-bg-secondary border-t border-border-glass pt-20 pb-8" id="contact">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
+                <!-- Brand -->
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <a href="#" class="flex items-center gap-2.5 text-xl font-bold text-text-primary mb-4">
+                        <img src="img/ether_health_logo.png" alt="EtherHealth Logo" class="w-9 h-9 object-contain" aria-hidden="true">
+                        <span>Ether<span class="text-accent">Health</span></span>
+                    </a>
+                    <p class="text-text-secondary text-sm leading-relaxed max-w-[280px]">
+                        Delivering compassionate, high-quality healthcare services. We're committed to helping you achieve optimal health and wellness.
+                    </p>
+                </div>
+                <!-- Services -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-widest text-text-muted mb-5">Services</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#services" class="text-sm text-text-secondary hover:text-accent transition-colors duration-200">Online Appointments</a></li>
+                        <li><a href="#services" class="text-sm text-text-secondary hover:text-accent transition-colors duration-200">Telemedicine</a></li>
+                        <li><a href="#services" class="text-sm text-text-secondary hover:text-accent transition-colors duration-200">Wellness Programs</a></li>
+                        <li><a href="#services" class="text-sm text-text-secondary hover:text-accent transition-colors duration-200">Diagnostics</a></li>
+                    </ul>
+                </div>
+                <!-- Address -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-widest text-text-muted mb-5">Address</h4>
+                    <ul class="space-y-2.5">
+                        <li><span class="text-sm text-text-secondary">12 Km Stone,</span></li>
+                        <li><span class="text-sm text-text-secondary">Amritsar-Jalandhar,</span></li>
+                        <li><span class="text-sm text-text-secondary">G.T Road,</span></li>
+                        <li><span class="text-sm text-text-secondary">Amritsar-143001 (PB), India</span></li>
+                    </ul>
+                </div>
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-widest text-text-muted mb-5">Contact</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="tel:8872009951" class="text-sm text-text-secondary hover:text-accent transition-colors duration-200">887-200-9951</a></li>
+                        <li><a href="tel:8872009950" class="text-sm text-text-secondary hover:text-accent transition-colors duration-200">887-200-9950</a></li>
+                        <li><span class="text-sm text-text-secondary">24/7 Support Line</span></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Bottom -->
+            <div class="border-t border-border-glass pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p class="text-xs text-text-muted">© 2026 EtherHealth — AGC Amritsar. All rights reserved.</p>
+                <p class="text-xs text-text-muted">Made with ❤️ for better healthcare</p>
+            </div>
+        </div>
     </footer>
-    
-  </body>
-  <script src="script.js"></script>
+
+    <!-- ===== Appointment Modal ===== -->
+    <div class="modal-overlay fixed inset-0 z-[2000] glass-modal flex items-center justify-center p-6" id="modal-overlay">
+        <div class="modal-content bg-bg-secondary border border-border-glass rounded-3xl p-10 max-sm:p-7 w-full max-w-[520px] max-h-[90vh] overflow-y-auto shadow-2xl relative">
+            <button class="absolute top-4 right-4 w-9 h-9 bg-glass border border-border-glass rounded-full flex items-center justify-center text-text-secondary text-lg hover:bg-red-500/15 hover:border-red-500/30 hover:text-red-500 transition-all duration-200 cursor-pointer" id="modal-close" aria-label="Close modal">✕</button>
+            <h2 class="text-2xl font-bold mb-2">Book an <span class="gradient-text">Appointment</span></h2>
+            <p class="text-text-muted text-sm mb-8">Fill in the details below and we'll get back to you shortly.</p>
+
+            <form id="form1">
+                <div class="mb-5">
+                    <label for="name" class="block text-xs font-semibold text-text-secondary mb-2 uppercase tracking-wider">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required
+                        class="form-input w-full px-4 py-3 bg-glass border border-border-glass rounded-lg text-text-primary text-[0.95rem] outline-none transition-all duration-200 placeholder:text-text-muted">
+                </div>
+                <div class="grid grid-cols-2 max-sm:grid-cols-1 gap-4 mb-5">
+                    <div>
+                        <label for="age" class="block text-xs font-semibold text-text-secondary mb-2 uppercase tracking-wider">Age</label>
+                        <input type="number" id="age" name="age" placeholder="Age" required
+                            class="form-input w-full px-4 py-3 bg-glass border border-border-glass rounded-lg text-text-primary text-[0.95rem] outline-none transition-all duration-200 placeholder:text-text-muted">
+                    </div>
+                    <div>
+                        <label for="gender" class="block text-xs font-semibold text-text-secondary mb-2 uppercase tracking-wider">Gender</label>
+                        <select id="gender" name="gender" title="Gender"
+                            class="form-input custom-select w-full px-4 py-3 bg-glass border border-border-glass rounded-lg text-text-primary text-[0.95rem] outline-none transition-all duration-200">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <label for="number" class="block text-xs font-semibold text-text-secondary mb-2 uppercase tracking-wider">Mobile Number</label>
+                    <input type="tel" id="number" name="number" placeholder="Enter mobile number" required
+                        class="form-input w-full px-4 py-3 bg-glass border border-border-glass rounded-lg text-text-primary text-[0.95rem] outline-none transition-all duration-200 placeholder:text-text-muted">
+                </div>
+                <div class="mb-5">
+                    <label for="address" class="block text-xs font-semibold text-text-secondary mb-2 uppercase tracking-wider">Address</label>
+                    <input type="text" id="address" name="address" placeholder="Enter your address" required
+                        class="form-input w-full px-4 py-3 bg-glass border border-border-glass rounded-lg text-text-primary text-[0.95rem] outline-none transition-all duration-200 placeholder:text-text-muted">
+                </div>
+                <div class="mb-5">
+                    <label for="reason" class="block text-xs font-semibold text-text-secondary mb-2 uppercase tracking-wider">Reason for Appointment</label>
+                    <input type="text" id="reason" name="reason" placeholder="Brief reason for your visit" required
+                        class="form-input w-full px-4 py-3 bg-glass border border-border-glass rounded-lg text-text-primary text-[0.95rem] outline-none transition-all duration-200 placeholder:text-text-muted">
+                </div>
+                <button type="submit" id="submit-btn"
+                    class="btn-gradient btn-shimmer w-full mt-2 inline-flex items-center justify-center gap-2 px-8 py-3.5 text-[0.95rem] font-semibold rounded-xl text-bg-primary shadow-[0_4px_20px_rgba(34,197,94,0.3)] hover:shadow-[0_8px_30px_rgba(34,197,94,0.45)] transition-all duration-300 cursor-pointer">
+                    Submit Appointment →
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== Toast Notification ===== -->
+    <div class="toast-notification fixed bottom-8 right-8 z-[3000] bg-bg-secondary border border-accent/30 rounded-xl px-6 py-4 flex items-center gap-3 shadow-2xl" id="toast">
+        <div class="w-8 h-8 btn-gradient rounded-full flex items-center justify-center text-sm shrink-0">✓</div>
+        <div>
+            <div class="text-sm text-text-primary font-medium">Appointment Booked!</div>
+            <div class="text-xs text-text-muted mt-0.5">We'll contact you shortly to confirm.</div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
 </html>
